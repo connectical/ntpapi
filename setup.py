@@ -2,31 +2,27 @@
 
 import ntpapi as project
 
-from setuptools import setup
+import os
 from setuptools import find_packages
-from pip.req import parse_requirements
-from pip.download import PipSession
+from setuptools import setup
 
 
-def get_file_content(fname):
+def read(fname):
     try:
-        return open(fname).read()
+        return open(os.path.join(os.path.dirname(__file__), fname)).read()
     except:
         return None
-
 
 setup(
     name=project.NAME,
     version=project.VERSION,
     description=project.DESCRIPTION,
-    long_description=get_file_content('README.md'),
+    long_description=read('README.md'),
     author=project.AUTHOR_NAME,
     author_email=project.AUTHOR_EMAIL,
     url=project.URL,
     packages=find_packages(),
-    install_requires=[str(x.req) for x in
-                      parse_requirements('requirements.txt',
-                      session=PipSession())],
+    install_requires=read('requirements.txt'),
     package_data={
     },
     license=project.LICENSE,
